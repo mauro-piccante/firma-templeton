@@ -89,7 +89,16 @@
     <div class="campo">
       <label for="email">Correo electr&oacute;nico</label>
       <input id="email" type="email" placeholder="nombre@templetonagencia.com" autocomplete="email">
-      <p class="hint">La direcci&oacute;n de la oficina y el aviso legal son iguales para todo el equipo y ya est&aacute;n incluidos.</p>
+    </div>
+    <div class="campo">
+      <label for="tel1">Tel&eacute;fono</label>
+      <input id="tel1" type="text" value="(+34) 932 030 951" autocomplete="tel">
+      <p class="hint">Viene puesto el de la agencia. C&aacute;mbialo solo si el tuyo es otro.</p>
+    </div>
+    <div class="campo">
+      <label for="tel2">Segundo tel&eacute;fono <span style="font-weight:400;color:#888;">(opcional)</span></label>
+      <input id="tel2" type="text" placeholder="(+34) 600 00 00 00" autocomplete="tel">
+      <p class="hint">Si lo rellenas, sale a la derecha del primero, en la misma l&iacute;nea. La direcci&oacute;n de la oficina y el aviso legal son iguales para todo el equipo y ya est&aacute;n incluidos.</p>
     </div>
   </div>
 
@@ -127,7 +136,9 @@ const GIF_URL_ANTIGUA = "https://uploads-ssl.webflow.com/62bad7c35e24a64dad8c7b0
 const WEB   = "https://www.templetonagencia.com";
 const CALLE = "C. C&oacute;rsega, 276 Pral. 2";
 const CIUDAD= "08008 Barcelona";
-const TEL   = "(+34) 932 030 951";
+const TEL_AGENCIA = "(+34) 932 030 951";
+/* Separador entre los dos telefonos cuando hay dos */
+const SEPARADOR = " &middot; ";
 
 const LEGAL = 'Este mensaje y sus archivos adjuntos van dirigidos exclusivamente a su destinatario, pudiendo contener informaci&oacute;n confidencial sometida a secreto profesional. No est&aacute; permitida su comunicaci&oacute;n, reproducci&oacute;n o distribuci&oacute;n sin autorizaci&oacute;n expresa. Si usted no es el destinatario final, por favor elim&iacute;nelo e inf&oacute;rmenos por esta v&iacute;a. PROTECCI&Oacute;N DE DATOS: De conformidad con lo dispuesto en la normativa de protecci&oacute;n de datos personales, Reglamento (UE) 2016/679, le informamos que los datos personales y direcci&oacute;n de correo electr&oacute;nico, ser&aacute;n tratados por SRTA.TEMPLETON, S.L. con la finalidad de gestionar nuestra agenda de contactos, atender sus solicitudes por v&iacute;a electr&oacute;nica as&iacute; como a efectos hist&oacute;ricos. Los datos se tratar&aacute;n en base a su consentimiento, ejecuci&oacute;n de un contrato, o el cumplimiento de obligaciones legales y los intereses leg&iacute;timos de SRTA.TEMPLETON, S.L.. El plazo de conservaci&oacute;n de los datos ser&aacute; el establecido en la normativa aplicable, como m&iacute;nimo. Puede contactar con el responsable, as&iacute; como ejercer los derechos de acceso, rectificaci&oacute;n, supresi&oacute;n, portabilidad de datos, limitaci&oacute;n, oposici&oacute;n y revocaci&oacute;n del consentimiento en C/ C&Oacute;RSEGA 276, PPAL 2&ordf;, 08008, BARCELONA, BARCELONA. Tienen derecho a realizar una reclamaci&oacute;n ante las autoridades de protecci&oacute;n de datos. Para m&aacute;s informaci&oacute;n consulte la pol&iacute;tica de privacidad en';
 
@@ -138,8 +149,13 @@ function esc(s){
     .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 }
 
-function construir(nombre, cargo, email){
+function construir(nombre, cargo, email, tel1, tel2){
   const n = esc(nombre), c = esc(cargo), e = esc(email);
+  /* Los espacios dentro de cada numero se vuelven no separables: asi el numero
+     nunca se parte a mitad aunque el programa de correo elimine el CSS. */
+  const tel = s => esc(s).replace(/\s+/g, '&nbsp;');
+  const t1 = tel(tel1), t2 = tel2 && tel2.trim() ? tel(tel2) : '';
+  const telefonos = t2 ? t1 + SEPARADOR + t2 : t1;
   return `<table cellpadding="0" cellspacing="0" border="0" role="presentation" style="border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;">
 <tr><td style="padding:0;font-family:Helvetica,Arial,sans-serif;font-size:25px;line-height:30px;color:#000000;">${n}</td></tr>
 <tr><td style="padding:10px 0 0 0;font-family:Helvetica,Arial,sans-serif;font-size:14px;line-height:20px;color:#000000;">${c}</td></tr>
@@ -150,7 +166,7 @@ function construir(nombre, cargo, email){
 <tr>
 <td width="150" valign="middle" style="padding:0;width:150px;"><a href="${WEB}" style="text-decoration:none;border:0;"><img src="${GIF_URL}" width="150" height="50" alt="Templeton" border="0" style="display:block;width:150px;height:50px;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic;"></a></td>
 <td width="20" style="width:20px;font-size:1px;line-height:1px;">&nbsp;</td>
-<td valign="middle" style="padding:0;font-family:Helvetica,Arial,sans-serif;font-size:13px;line-height:19px;color:#000000;">${CALLE}<br>${CIUDAD}<br>${TEL}</td>
+<td valign="middle" style="padding:0;font-family:Helvetica,Arial,sans-serif;font-size:13px;line-height:19px;color:#000000;">${CALLE}<br>${CIUDAD}<br>${telefonos}</td>
 </tr>
 </table>
 </td></tr>
@@ -161,26 +177,30 @@ function construir(nombre, cargo, email){
 const $n = document.getElementById('nombre');
 const $c = document.getElementById('cargo');
 const $e = document.getElementById('email');
+const $t1 = document.getElementById('tel1');
+const $t2 = document.getElementById('tel2');
 const $previa = document.getElementById('previa');
 const $btn = document.getElementById('copiar');
 
 let htmlActual = '';
 
 function refrescar(){
-  const n = $n.value.trim() || 'Nombre Apellido';
-  const c = $c.value.trim() || 'Cargo';
-  const e = $e.value.trim() || 'nombre@templetonagencia.com';
-  htmlActual = construir(n, c, e);
+  const n  = $n.value.trim() || 'Nombre Apellido';
+  const c  = $c.value.trim() || 'Cargo';
+  const e  = $e.value.trim() || 'nombre@templetonagencia.com';
+  const t1 = $t1.value.trim() || TEL_AGENCIA;
+  const t2 = $t2.value.trim();
+  htmlActual = construir(n, c, e, t1, t2);
   $previa.innerHTML = htmlActual;
 
-  const completo = $n.value.trim() && $c.value.trim() && $e.value.trim();
+  const completo = $n.value.trim() && $c.value.trim() && $e.value.trim() && $t1.value.trim();
   $btn.disabled = !completo;
   if(!$btn.classList.contains('ok')){
-    $btn.textContent = completo ? 'Copiar firma' : 'Rellena los tres campos';
+    $btn.textContent = completo ? 'Copiar firma' : 'Rellena los campos obligatorios';
   }
 }
 
-[$n,$c,$e].forEach(el => el.addEventListener('input', refrescar));
+[$n,$c,$e,$t1,$t2].forEach(el => el.addEventListener('input', refrescar));
 
 $btn.addEventListener('click', async () => {
   const blobHtml  = new Blob([htmlActual], {type:'text/html'});
