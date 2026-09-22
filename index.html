@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Firma de correo Templeton</title>
+<style>
+  :root{
+    --verde:#226641;
+    --azul:#0043D8;
+    --negro:#000000;
+    --gris:#969696;
+    --linea:#E4E4E4;
+    --fondo:#FAFAF9;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    padding:40px 20px 80px;
+    background:var(--fondo);
+    color:var(--negro);
+    font-family:Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:720px;margin:0 auto;}
+  h1{font-size:28px;line-height:34px;margin:0 0 8px;font-weight:600;letter-spacing:-0.01em;}
+  .sub{font-size:15px;line-height:22px;color:#555;margin:0 0 36px;}
+  .aviso{
+    background:#FFF8E1;border:1px solid #F0DFA8;color:#7A5C00;
+    padding:12px 16px;border-radius:8px;font-size:13px;line-height:19px;margin:0 0 28px;
+  }
+  .card{
+    background:#fff;border:1px solid var(--linea);border-radius:12px;
+    padding:28px;margin-bottom:24px;
+  }
+  label{display:block;font-size:13px;font-weight:600;margin:0 0 6px;letter-spacing:0.01em;}
+  input{
+    width:100%;padding:12px 14px;font-size:15px;font-family:inherit;
+    border:1px solid #D6D6D6;border-radius:8px;background:#fff;color:var(--negro);
+  }
+  input:focus{outline:none;border-color:var(--verde);box-shadow:0 0 0 3px rgba(34,102,65,.12);}
+  .campo{margin-bottom:18px;}
+  .campo:last-child{margin-bottom:0;}
+  .hint{font-size:12px;color:#888;margin:6px 0 0;}
+  .previa{
+    border:1px solid var(--linea);border-radius:12px;background:#fff;
+    padding:28px;overflow-x:auto;
+  }
+  .etiqueta{
+    font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+    color:var(--gris);margin:0 0 14px;
+  }
+  button{
+    display:block;width:100%;padding:16px;font-size:16px;font-weight:600;font-family:inherit;
+    background:var(--verde);color:#fff;border:0;border-radius:8px;cursor:pointer;
+    transition:background .15s ease;
+  }
+  button:hover{background:#1A4F33;}
+  button.ok{background:var(--negro);}
+  button:disabled{background:#C4C4C4;cursor:not-allowed;}
+  ol{margin:0;padding-left:20px;font-size:14px;line-height:24px;color:#333;}
+  ol li{margin-bottom:8px;}
+  ol li:last-child{margin-bottom:0;}
+  .pasos h2{font-size:16px;margin:0 0 16px;font-weight:600;}
+  .nota{font-size:13px;line-height:20px;color:#666;border-top:1px solid var(--linea);padding-top:16px;margin-top:20px;}
+  code{background:#F2F2F0;padding:2px 6px;border-radius:4px;font-size:12px;}
+  @media (max-width:560px){ body{padding:24px 16px 60px;} .card,.previa{padding:20px;} h1{font-size:23px;line-height:29px;} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Firma de correo Templeton</h1>
+  <p class="sub">Escribe tu nombre, tu cargo y tu correo. Pulsa el bot&oacute;n y pega la firma en Gmail. No hay que tocar nada m&aacute;s.</p>
+
+  <div class="aviso" id="aviso" hidden>
+    Falta subir el GIF nuevo. Abre este archivo con un editor de texto y sustituye el valor de <code>GIF_URL</code> por la direcci&oacute;n del GIF definitivo.
+  </div>
+
+  <div class="card">
+    <div class="campo">
+      <label for="nombre">Nombre y apellido</label>
+      <input id="nombre" type="text" placeholder="Bel&eacute;n Canas" autocomplete="name">
+    </div>
+    <div class="campo">
+      <label for="cargo">Cargo</label>
+      <input id="cargo" type="text" placeholder="Production &amp; Admin Director" autocomplete="organization-title">
+    </div>
+    <div class="campo">
+      <label for="email">Correo electr&oacute;nico</label>
+      <input id="email" type="email" placeholder="nombre@templetonagencia.com" autocomplete="email">
+      <p class="hint">La direcci&oacute;n de la oficina y el aviso legal son iguales para todo el equipo y ya est&aacute;n incluidos.</p>
+    </div>
+  </div>
+
+  <p class="etiqueta">Vista previa</p>
+  <div class="previa"><div id="previa"></div></div>
+
+  <div style="margin:24px 0;">
+    <button id="copiar" disabled>Rellena los tres campos</button>
+  </div>
+
+  <div class="card pasos">
+    <h2>C&oacute;mo ponerla en Gmail</h2>
+    <ol>
+      <li>Pulsa el bot&oacute;n verde de arriba.</li>
+      <li>En Gmail, abre el men&uacute; de ajustes (el engranaje, arriba a la derecha) y entra en <strong>Ver todos los ajustes</strong>.</li>
+      <li>En la pesta&ntilde;a <strong>General</strong>, baja hasta <strong>Firma</strong>.</li>
+      <li>Si ya ten&iacute;as una firma, b&oacute;rrala entera antes de pegar. Selecciona todo el contenido del recuadro y elim&iacute;nalo.</li>
+      <li>Haz clic dentro del recuadro y pega con <strong>Cmd+V</strong> (Mac) o <strong>Ctrl+V</strong> (Windows).</li>
+      <li>Baja del todo y pulsa <strong>Guardar cambios</strong>.</li>
+    </ol>
+      <p class="nota">No escribas ni corrijas nada dentro del recuadro de la firma despu&eacute;s de pegarla: es justo lo que la descoloca. Si te equivocas, borra todo y vuelve a pegar desde aqu&iacute;.</p>
+  </div>
+
+</div>
+
+<script>
+/* =========================================================================
+   CONFIGURACION
+   Cambiar GIF_URL cuando el GIF nuevo este subido a Webflow.
+   Debe ser una direccion publica, sin contrasena y sin caducidad.
+   ========================================================================= */
+const GIF_URL = "https://mauro-piccante.github.io/firma-templeton/firma-templeton.gif";
+const GIF_URL_ANTIGUA = "https://uploads-ssl.webflow.com/62bad7c35e24a64dad8c7b0b/632865ada6216e0a9030d162_FIRMA_1.gif";
+
+const WEB   = "https://www.templetonagencia.com";
+const CALLE = "C. C&oacute;rsega, 276 Pral. 2";
+const CIUDAD= "08008 Barcelona";
+const TEL   = "(+34) 932 030 951";
+
+const LEGAL = 'Este mensaje y sus archivos adjuntos van dirigidos exclusivamente a su destinatario, pudiendo contener informaci&oacute;n confidencial sometida a secreto profesional. No est&aacute; permitida su comunicaci&oacute;n, reproducci&oacute;n o distribuci&oacute;n sin autorizaci&oacute;n expresa. Si usted no es el destinatario final, por favor elim&iacute;nelo e inf&oacute;rmenos por esta v&iacute;a. PROTECCI&Oacute;N DE DATOS: De conformidad con lo dispuesto en la normativa de protecci&oacute;n de datos personales, Reglamento (UE) 2016/679, le informamos que los datos personales y direcci&oacute;n de correo electr&oacute;nico, ser&aacute;n tratados por SRTA.TEMPLETON, S.L. con la finalidad de gestionar nuestra agenda de contactos, atender sus solicitudes por v&iacute;a electr&oacute;nica as&iacute; como a efectos hist&oacute;ricos. Los datos se tratar&aacute;n en base a su consentimiento, ejecuci&oacute;n de un contrato, o el cumplimiento de obligaciones legales y los intereses leg&iacute;timos de SRTA.TEMPLETON, S.L.. El plazo de conservaci&oacute;n de los datos ser&aacute; el establecido en la normativa aplicable, como m&iacute;nimo. Puede contactar con el responsable, as&iacute; como ejercer los derechos de acceso, rectificaci&oacute;n, supresi&oacute;n, portabilidad de datos, limitaci&oacute;n, oposici&oacute;n y revocaci&oacute;n del consentimiento en C/ C&Oacute;RSEGA 276, PPAL 2&ordf;, 08008, BARCELONA, BARCELONA. Tienen derecho a realizar una reclamaci&oacute;n ante las autoridades de protecci&oacute;n de datos. Para m&aacute;s informaci&oacute;n consulte la pol&iacute;tica de privacidad en';
+
+/* Escapa lo que escribe la persona: ningun caracter raro puede romper el HTML */
+function esc(s){
+  return String(s).trim()
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+function construir(nombre, cargo, email){
+  const n = esc(nombre), c = esc(cargo), e = esc(email);
+  return `<table cellpadding="0" cellspacing="0" border="0" role="presentation" style="border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;">
+<tr><td style="padding:0;font-family:Helvetica,Arial,sans-serif;font-size:25px;line-height:30px;color:#000000;">${n}</td></tr>
+<tr><td style="padding:10px 0 0 0;font-family:Helvetica,Arial,sans-serif;font-size:14px;line-height:20px;color:#000000;">${c}</td></tr>
+<tr><td style="padding:6px 0 0 0;font-family:Helvetica,Arial,sans-serif;font-size:14px;line-height:20px;"><a href="mailto:${e}" style="color:#0043D8;text-decoration:none;font-family:Helvetica,Arial,sans-serif;font-size:14px;"><font color="#0043D8">${e}</font></a></td></tr>
+<tr><td style="padding:0;font-family:Helvetica,Arial,sans-serif;font-size:14px;line-height:20px;"><a href="${WEB}" style="color:#226641;text-decoration:none;font-family:Helvetica,Arial,sans-serif;font-size:14px;"><font color="#226641">templetonagencia.com</font></a></td></tr>
+<tr><td style="padding:20px 0 0 0;">
+<table cellpadding="0" cellspacing="0" border="0" role="presentation" style="border-collapse:collapse;">
+<tr>
+<td width="150" valign="middle" style="padding:0;width:150px;"><a href="${WEB}" style="text-decoration:none;border:0;"><img src="${GIF_URL}" width="150" height="50" alt="Templeton" border="0" style="display:block;width:150px;height:50px;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic;"></a></td>
+<td width="20" style="width:20px;font-size:1px;line-height:1px;">&nbsp;</td>
+<td valign="middle" style="padding:0;font-family:Helvetica,Arial,sans-serif;font-size:13px;line-height:19px;color:#000000;">${CALLE}<br>${CIUDAD}<br>${TEL}</td>
+</tr>
+</table>
+</td></tr>
+<tr><td width="600" style="padding:24px 0 0 0;width:600px;font-family:Helvetica,Arial,sans-serif;font-size:10px;line-height:14px;color:#969696;"><font color="#969696">${LEGAL} <a href="${WEB}" style="color:#0043D8;text-decoration:none;"><font color="#0043D8">templetonagencia.com</font></a></font></td></tr>
+</table>`;
+}
+
+const $n = document.getElementById('nombre');
+const $c = document.getElementById('cargo');
+const $e = document.getElementById('email');
+const $previa = document.getElementById('previa');
+const $btn = document.getElementById('copiar');
+
+let htmlActual = '';
+
+function refrescar(){
+  const n = $n.value.trim() || 'Nombre Apellido';
+  const c = $c.value.trim() || 'Cargo';
+  const e = $e.value.trim() || 'nombre@templetonagencia.com';
+  htmlActual = construir(n, c, e);
+  $previa.innerHTML = htmlActual;
+
+  const completo = $n.value.trim() && $c.value.trim() && $e.value.trim();
+  $btn.disabled = !completo;
+  if(!$btn.classList.contains('ok')){
+    $btn.textContent = completo ? 'Copiar firma' : 'Rellena los tres campos';
+  }
+}
+
+[$n,$c,$e].forEach(el => el.addEventListener('input', refrescar));
+
+$btn.addEventListener('click', async () => {
+  const blobHtml  = new Blob([htmlActual], {type:'text/html'});
+  const blobTexto = new Blob([$previa.innerText], {type:'text/plain'});
+  try{
+    await navigator.clipboard.write([ new ClipboardItem({'text/html':blobHtml, 'text/plain':blobTexto}) ]);
+    confirmar();
+  }catch(err){
+    /* Respaldo para navegadores que no admiten el portapapeles con formato */
+    const sel = window.getSelection();
+    const rango = document.createRange();
+    rango.selectNodeContents($previa);
+    sel.removeAllRanges(); sel.addRange(rango);
+    const ok = document.execCommand('copy');
+    sel.removeAllRanges();
+    ok ? confirmar() : alert('El navegador ha bloqueado la copia. Selecciona la firma de la vista previa con el ratón y cópiala a mano.');
+  }
+});
+
+function confirmar(){
+  $btn.classList.add('ok');
+  $btn.textContent = 'Copiada. Ahora pégala en Gmail';
+  setTimeout(() => { $btn.classList.remove('ok'); refrescar(); }, 4000);
+}
+
+if(GIF_URL === GIF_URL_ANTIGUA){ document.getElementById('aviso').hidden = false; }
+refrescar();
+</script>
+</body>
+</html>
