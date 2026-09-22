@@ -40,8 +40,24 @@
   }
   input:focus{outline:none;border-color:var(--verde);box-shadow:0 0 0 3px rgba(34,102,65,.12);}
   .campo{margin-bottom:18px;}
-  .campo:last-child{margin-bottom:0;}
   .hint{font-size:12px;color:#888;margin:6px 0 0;}
+  .fila{display:flex;align-items:center;gap:10px;}
+  .fila input{flex:1;min-width:0;}
+  input[readonly]{background:#F4F4F2;color:#666;cursor:default;}
+  input[readonly]:focus{border-color:#D6D6D6;box-shadow:none;}
+  .enlace{
+    width:auto;flex:0 0 auto;padding:0;background:none;border:0;border-radius:0;
+    color:var(--verde);font-size:13px;font-weight:600;font-family:inherit;
+    cursor:pointer;text-decoration:underline;text-underline-offset:3px;
+  }
+  .enlace:hover{background:none;color:#1A4F33;}
+  .enlace.quitar{color:#999;}
+  .enlace.quitar:hover{color:#B3261E;}
+  .secundario{
+    width:auto;padding:10px 16px;font-size:14px;font-weight:600;
+    background:#fff;color:var(--verde);border:1px solid #D6D6D6;border-radius:8px;
+  }
+  .secundario:hover{background:#F4F4F2;color:var(--verde);border-color:#C0C0C0;}
   .previa{
     border:1px solid var(--linea);border-radius:12px;background:#fff;
     padding:28px;overflow-x:auto;
@@ -92,14 +108,25 @@
     </div>
     <div class="campo">
       <label for="tel1">Tel&eacute;fono</label>
-      <input id="tel1" type="text" value="(+34) 932 030 951" autocomplete="tel">
-      <p class="hint">Viene puesto el de la agencia. C&aacute;mbialo solo si el tuyo es otro.</p>
+      <div class="fila">
+        <input id="tel1" type="text" value="(+34) 932 030 951" autocomplete="tel" readonly>
+        <button type="button" class="enlace" id="editar-tel1">Personalizar</button>
+      </div>
+      <p class="hint" id="hint-tel1">El de la agencia. Si el tuyo es otro, pulsa Personalizar.</p>
     </div>
-    <div class="campo">
-      <label for="tel2">Segundo tel&eacute;fono <span style="font-weight:400;color:#888;">(opcional)</span></label>
-      <input id="tel2" type="text" placeholder="(+34) 600 00 00 00" autocomplete="tel">
-      <p class="hint">Si lo rellenas, sale a la derecha del primero, en la misma l&iacute;nea. La direcci&oacute;n de la oficina y el aviso legal son iguales para todo el equipo y ya est&aacute;n incluidos.</p>
+
+    <div class="campo" id="bloque-tel2" hidden>
+      <label for="tel2">Segundo tel&eacute;fono</label>
+      <div class="fila">
+        <input id="tel2" type="text" placeholder="(+34) 600 00 00 00" autocomplete="tel">
+        <button type="button" class="enlace quitar" id="quitar-tel2">Quitar</button>
+      </div>
+      <p class="hint">Sale a la derecha del primero, en la misma l&iacute;nea.</p>
     </div>
+
+    <button type="button" class="secundario" id="anadir-tel2">+ A&ntilde;adir otro tel&eacute;fono</button>
+
+    <p class="hint" style="margin-top:18px;">La direcci&oacute;n de la oficina y el aviso legal son iguales para todo el equipo y ya est&aacute;n incluidos.</p>
   </div>
 
   <p class="etiqueta">Vista previa</p>
@@ -179,6 +206,10 @@ const $c = document.getElementById('cargo');
 const $e = document.getElementById('email');
 const $t1 = document.getElementById('tel1');
 const $t2 = document.getElementById('tel2');
+const $bloque2 = document.getElementById('bloque-tel2');
+const $anadir  = document.getElementById('anadir-tel2');
+const $quitar  = document.getElementById('quitar-tel2');
+const $editar  = document.getElementById('editar-tel1');
 const $previa = document.getElementById('previa');
 const $btn = document.getElementById('copiar');
 
@@ -189,7 +220,7 @@ function refrescar(){
   const c  = $c.value.trim() || 'Cargo';
   const e  = $e.value.trim() || 'nombre@templetonagencia.com';
   const t1 = $t1.value.trim() || TEL_AGENCIA;
-  const t2 = $t2.value.trim();
+  const t2 = $bloque2.hidden ? '' : $t2.value.trim();
   htmlActual = construir(n, c, e, t1, t2);
   $previa.innerHTML = htmlActual;
 
@@ -201,6 +232,31 @@ function refrescar(){
 }
 
 [$n,$c,$e,$t1,$t2].forEach(el => el.addEventListener('input', refrescar));
+
+/* El primer telefono llega bloqueado con el de la agencia.
+   Solo se desbloquea si la persona lo pide. */
+$editar.addEventListener('click', () => {
+  $t1.readOnly = false;
+  $editar.hidden = true;
+  document.getElementById('hint-tel1').textContent = 'Si lo dejas vacío vuelve a salir el de la agencia.';
+  $t1.focus();
+  $t1.setSelectionRange($t1.value.length, $t1.value.length);
+});
+
+/* El segundo telefono no existe hasta que se pide. */
+$anadir.addEventListener('click', () => {
+  $bloque2.hidden = false;
+  $anadir.hidden = true;
+  $t2.focus();
+  refrescar();
+});
+
+$quitar.addEventListener('click', () => {
+  $t2.value = '';
+  $bloque2.hidden = true;
+  $anadir.hidden = false;
+  refrescar();
+});
 
 $btn.addEventListener('click', async () => {
   const blobHtml  = new Blob([htmlActual], {type:'text/html'});
