@@ -96,11 +96,11 @@
   <div class="card">
     <div class="campo">
       <label for="nombre">Nombre y apellido</label>
-      <input id="nombre" type="text" placeholder="Bel&eacute;n Canas" autocomplete="name">
+      <input id="nombre" type="text" placeholder="Nombre Apellido" autocomplete="name">
     </div>
     <div class="campo">
       <label for="cargo">Cargo</label>
-      <input id="cargo" type="text" placeholder="Production &amp; Admin Director" autocomplete="organization-title">
+      <input id="cargo" type="text" placeholder="Cargo" autocomplete="organization-title">
     </div>
     <div class="campo">
       <label for="email">Correo electr&oacute;nico</label>
@@ -133,7 +133,7 @@
   <div class="previa"><div id="previa"></div></div>
 
   <div style="margin:24px 0;">
-    <button id="copiar" disabled>Rellena los tres campos</button>
+    <button id="copiar" disabled>Rellena los campos obligatorios</button>
   </div>
 
   <div class="card pasos">
@@ -154,8 +154,9 @@
 <script>
 /* =========================================================================
    CONFIGURACION
-   Cambiar GIF_URL cuando el GIF nuevo este subido a Webflow.
-   Debe ser una direccion publica, sin contrasena y sin caducidad.
+   GIF_URL apunta al GIF publicado junto a esta pagina. Si algun dia se aloja
+   en otro sitio (por ejemplo el Webflow de Templeton), se cambia solo aqui.
+   Debe ser siempre una direccion publica, sin contrasena y sin caducidad.
    ========================================================================= */
 const GIF_URL = "https://mauro-piccante.github.io/firma-templeton/firma-templeton.gif";
 const GIF_URL_ANTIGUA = "https://uploads-ssl.webflow.com/62bad7c35e24a64dad8c7b0b/632865ada6216e0a9030d162_FIRMA_1.gif";
